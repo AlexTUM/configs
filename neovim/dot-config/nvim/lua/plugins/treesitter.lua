@@ -1,4 +1,4 @@
-function basic_setup() 
+function Basic_setup_sitter()
 
     local config = require("nvim-treesitter.configs")
     config.setup({
@@ -41,5 +41,5 @@ end
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = basic_setup,
+    config = Basic_setup_sitter,
 }

@@ -1,5 +1,5 @@
-function basic_config() 
-    
+function Basic_config_ll()
+
     require("lualine").setup({
         options = {
             theme = "catppuccin",
@@ -13,5 +13,5 @@ end
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = basic_config,
+    config = Basic_config_ll,
 }

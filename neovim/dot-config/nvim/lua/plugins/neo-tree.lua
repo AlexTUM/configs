@@ -1,12 +1,12 @@
-function basic_setup()
-    
+function Basic_setup_ntree()
+
     vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>')
     require("neo-tree").setup({
         close_if_last_window = true,
         sort_case_insensitive = true,
     })
 
-end    
+end
 
 return {
     "nvim-neo-tree/neo-tree.nvim",
@@ -16,5 +16,5 @@ return {
         "nvim-tree/nvim-web-devicons",
         "MunifTanjim/nui.nvim",
     },
-    config = basic_setup,
+    config = Basic_setup_ntree,
 }

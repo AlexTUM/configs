@@ -1,4 +1,4 @@
-function basic_setup() 
+function Basic_setup_cat()
 
     vim.cmd.colorscheme "catppuccin"
     require("catppuccin").setup({
@@ -23,6 +23,6 @@ return {
     lazy = false,
     name = "catpuccin",
     priority = 1000,
-    config = basic_setup
+    config = Basic_setup_cat
 }
 
