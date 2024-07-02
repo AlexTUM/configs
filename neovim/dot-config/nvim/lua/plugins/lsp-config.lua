@@ -11,7 +11,6 @@ function Basic_setup_mlspconfig()
     require("mason-lspconfig").setup({
         ensure_installed = {
             "lua_ls",
-            "snyk_ls",
             "typos_lsp",
             "bashls",
             "clangd",
@@ -34,7 +33,6 @@ function Basic_setup_lsp()
 
     local lspconfig = require("lspconfig")
     lspconfig.lua_ls.setup({})
-    lspconfig.synk_ls.setup({})
     lspconfig.typos_lsp.setup({})
     lspconfig.bashls.setup({})
     lspconfig.clangd.setup({})
