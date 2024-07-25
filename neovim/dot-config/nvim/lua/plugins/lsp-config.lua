@@ -41,7 +41,14 @@ function Basic_setup_lsp()
     lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
     lspconfig.jsonls.setup({ capabilities = capabilities })
     lspconfig.jdtls.setup({ capabilities = capabilities })
-    lspconfig.ltex.setup({ capabilities = capabilities })
+    lspconfig.ltex.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+            require("ltex_extra").setup({
+                load_langs = { "en-US" }
+            })
+        end,
+    })
     lspconfig.autotools_ls.setup({ capabilities = capabilities })
     lspconfig.pylsp.setup({ capabilities = capabilities })
     lspconfig.rust_analyzer.setup({ capabilities = capabilities })
@@ -50,9 +57,14 @@ function Basic_setup_lsp()
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
     vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {}, vim.lsp.buf.rename, {})
 end
 
 return {
+    {
+        "barreiroleo/ltex_extra.nvim",
+        lazy = false,
+    },
     {
         "williamboman/mason.nvim",
         lazy = false,
