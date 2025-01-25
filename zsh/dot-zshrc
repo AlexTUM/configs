@@ -5,6 +5,7 @@ ZSH_THEME="bira"
 
 export CLICOLOR=1
 
+ZSH_CUSTOM=$ZSH/../custom
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -46,3 +47,4 @@ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+
