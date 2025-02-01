@@ -8,14 +8,15 @@ function theme_precmd {
   local rubypromptsize=${#${(%)$(ruby_prompt_info)}}
   local pwdsize=${#${(%):-%~}}
   local venvpromptsize=$((${#$(virtualenv_prompt_info)}))
+  local histeventsize=${#${(%):----<%h>}}
 
   # Truncate the path if it's too long.
-  if (( promptsize + rubypromptsize + pwdsize + venvpromptsize > TERMWIDTH )); then
+  if (( promptsize + rubypromptsize + pwdsize + venvpromptsize + histeventsize > TERMWIDTH )); then
     (( PR_PWDLEN = TERMWIDTH - promptsize ))
   elif [[ "${langinfo[CODESET]}" = UTF-8 ]]; then
-    PR_FILLBAR="\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize ) ))::${PR_HBAR}:)}"
+    PR_FILLBAR="\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize + histeventsize) ))::${PR_HBAR}:)}"
   else
-    PR_FILLBAR="${PR_SHIFT_IN}\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize ) ))::${altchar[q]:--}:)}${PR_SHIFT_OUT}"
+    PR_FILLBAR="${PR_SHIFT_IN}\${(l:$(( TERMWIDTH - (promptsize + rubypromptsize + pwdsize + venvpromptsize + histeventsize) ))::${altchar[q]:--}:)}${PR_SHIFT_OUT}"
   fi
 }
 
@@ -131,10 +132,12 @@ else
 fi
 
 # Finally, the prompt.
-PROMPT='${PR_SET_CHARSET}${PR_STITLE}${(e)PR_TITLEBAR}\
+PROMPT='
+${PR_SET_CHARSET}${PR_STITLE}${(e)PR_TITLEBAR}\
 ${CAT_ACCENT}${PR_ULCORNER}${PR_HBAR}${CAT_WHITE}(\
 ${CAT_PEACH}%${PR_PWDLEN}<...<%~%<<\
-${CAT_WHITE})$(virtualenv_prompt_info)$(ruby_prompt_info)${CAT_ACCENT}${PR_HBAR}${PR_HBAR}${(e)PR_FILLBAR}${PR_HBAR}${CAT_WHITE}(\
+${CAT_WHITE})$(virtualenv_prompt_info)$(ruby_prompt_info)${CAT_ACCENT}${PR_HBAR}${PR_HBAR}${(e)PR_FILLBAR}\
+${CAT_WHITE}<${CAT_BLUE}%!${CAT_WHITE}>${CAT_ACCENT}${PR_HBAR}${PR_HBAR}${PR_HBAR}${PR_HBAR}${CAT_WHITE}(\
 ${CAT_TEAL}%(!.%SROOT%s.%n)${CAT_WHITE}@${CAT_GREEN}%m:%l\
 ${CAT_WHITE})${CAT_ACCENT}${PR_HBAR}${PR_URCORNER}\
 
@@ -145,11 +148,10 @@ ${PR_HBAR}\
 >${PR_NO_COLOUR} '
 
 # display exitcode on the right when > 0
-return_code="%(?..${CAT_}%? ↵ %{$reset_color%})"
-RPROMPT=' $return_code${CAT_ACCENT}${PR_HBAR}${PR_HBAR}\
+return_code="%(?..${CAT_RED}[%?] %{$reset_color%})"
+RPROMPT=' $return_code${CAT_ACCENT}├${PR_HBAR}${PR_HBAR}\
 (${CAT_YELLOW}%D{%a,%b%d}${CAT_ACCENT})${PR_HBAR}${PR_LRCORNER}${PR_NO_COLOUR}'
 
-PS2='${CAT_ACCENT}${PR_HBAR}\
-${PR_HBAR}(\
-${PR_LIGHT_GREEN}%_${PR_BLUE})${PR_HBAR}\
-${PR_CYAN}${PR_HBAR}${PR_NO_COLOUR} '
+PS2='${CAT_ACCENT} ▏  ${PR_NO_COLOUR}'
+PS3='${CAT_PEACH} Pick an option ${CAT_ACCENT}->${PR_NO_COLOUR} '
+PS4='${CAT_B_RED}DEBUG: ${CAT_B_TEAL}%N${CAT_WHITE}:${CAT_LAVENDER}%i %1(e.${CAT_ROSEWATER}(%e%) ..)${CAT_ACCENT}>>${PR_NO_COLOUR} '
