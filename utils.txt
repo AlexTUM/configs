@@ -1,0 +1,57 @@
+# main utilities
+evince          # pdf viewer
+dust            # du visual
+btop            # task manager
+logseq-desktop-wayland-bin # notes
+nvim            # nvim
+zsh             # shell
+zsh-completions # shell completions
+tree            # dir structure vis
+tree-sitter-cli # for nvim setup
+thunderbird     # mail
+firefox         # web
+rua             # AUR helper
+amd-ucode       # micropatch
+acpi            # battery etc.
+git
+git-lfs
+base
+base-devel
+clang
+cppcheck        # for nvim setup
+cmake
+docker
+docker-buildx
+docker-compose
+fd              # improved find
+glow            # terminal markup render
+kakasi          # kanji support
+luarocks        # lua stuff; for nvim
+man-db
+man-pages
+neovim
+openvpn
+networkmanager-openvpn
+nftables        # iptables utility
+ripgrep         # additional grep features
+python-pip
+rustup
+stow            # installing dotfiles
+sudo
+tcpdump
+wget
+
+
+
+# AUR utilities
+anki            # flashcards
+visual-studio-code-bin # vscode
+
+
+# Other stuff
+# bluez-utils
+# usbutils
+# nerd fonts (extended symbols)
+# gnome window manager
+# llvm
+# efitools
