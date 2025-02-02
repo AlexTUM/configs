@@ -8,8 +8,9 @@ end
 
 return {
 	{
-		"derektata/lorem.nvim",
-		config = Basic_setup_ipsum,
+		--[[ "derektata/lorem.nvim", ]]
+		-- config = Basic_setup_ipsum,
+        --[[ config = true, ]]
 	},
     {
         "nvimdev/indentmini.nvim",

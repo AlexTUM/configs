@@ -7,3 +7,5 @@ vim.opt.number = true
 
 vim.keymap.set({'n', 'x'}, 'gy', '"+y')
 vim.keymap.set({'n', 'x'}, 'gp', '"+p')
+
+vim.cmd.highlight('IndentLine guifg=#756f81')
