@@ -48,7 +48,9 @@ source <(fzf --zsh)
 # User configuration
 
 # compact fetch on shell startup
-fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
+if command -v fastfetch >/dev/null 2>&1 && [[ -f "$HOME/.config/fastfetch/config-compact.jsonc" ]]; then
+    fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
+fi
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
