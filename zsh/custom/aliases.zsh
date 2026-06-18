@@ -11,3 +11,6 @@ alias lla='ls -la'
 # program shortcuts
 alias pdfview='evince -f'
 alias fvim='nvim $(fzf -m --preview="bat --color=always --style=plain {}")'
+
+# global aliases
+alias -g NE='2>/dev/null'
