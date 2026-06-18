@@ -73,6 +73,3 @@ bindkey '^x^e' edit-command-line
 
 # more autoloads
 autoload zmv
-
-# bindkeys
-bindkey -s '^Xgc' 'git commit -m ""\C-b'

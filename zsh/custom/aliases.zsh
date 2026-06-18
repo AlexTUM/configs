@@ -4,8 +4,8 @@ alias ohmyzsh="nvim ~/.oh-my-zsh"
 
 # main shortcuts
 alias ls='lsd' # use lsd instead of ls -> e.g. adds icons
-alias ll='ls -l'
-alias lla='ls -la'
+alias ll='lsd -l'
+alias lla='lsd -la'
 
 
 # program shortcuts
