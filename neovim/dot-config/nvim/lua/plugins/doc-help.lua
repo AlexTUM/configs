@@ -1,4 +1,4 @@
 return {
-    "adelarsq/investigate.nvim",
+    "AlexTUM/investigate.nvim",
     config = true,
 }

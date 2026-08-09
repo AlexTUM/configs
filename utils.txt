@@ -40,6 +40,7 @@ stow            # installing dotfiles
 sudo
 tcpdump
 wget
+wl-clipboard    # wayland clipboard support (needed for nvim)
 
 
 

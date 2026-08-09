@@ -29,10 +29,12 @@ function Basic_setup_bc()
 end
 
 return {
+    -- toggle comments or insert comments at certain points
 	{
 		"numToStr/Comment.nvim",
 		config = true,
 	},
+    -- special formatting for comments with keywords
 	{
 		"Djancyp/better-comments.nvim",
 		config = Basic_setup_bc,

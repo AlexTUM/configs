@@ -1,3 +1,4 @@
+-- F5 for query editing
 return {
     'cameron-wags/rainbow_csv.nvim',
     config = true,
@@ -14,6 +15,9 @@ return {
         'RainbowDelim',
         'RainbowDelimSimple',
         'RainbowDelimQuoted',
-        'RainbowMultiDelim'
+        'RainbowMultiDelim',
+        'NoRainbowDelim',
+        'RainbowAlign',
+        'RainbowShrink'
     }
 }

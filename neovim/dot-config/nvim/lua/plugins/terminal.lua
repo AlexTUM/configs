@@ -44,6 +44,9 @@ return {
         start_in_insert = true,
         insert_mappings = true,
         terminal_mappings = true,
+        float_opts = {
+            border = "curved",
+        },
         persist_size = true,
         direction = "window" or "float",
         close_on_exit = true,
