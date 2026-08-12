@@ -1,0 +1,172 @@
+{
+// CIRCLES Style
+"hyprland/workspaces": {
+	"active-only": false,
+	"all-outputs": true,
+	"format": "{icon}",
+	"show-special": false,
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5
+	},
+	"format-icons": {
+		"active": "",
+		"default": "",
+	},
+},
+// ROMAN Numerals style
+"hyprland/workspaces#roman": {
+	"active-only": false,
+	"all-outputs": true,
+	"format": "{icon}",
+	"show-special": false,
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5
+	},
+	"format-icons": {
+		"1": "I",
+		"2": "II",
+		"3": "III",
+		"4": "IV",
+		"5": "V",
+		"6": "VI",
+		"7": "VII",
+		"8": "VIII",
+		"9": "IX",
+		"10": "X",
+	},
+},
+// Kanji / Japanese style
+"hyprland/workspaces#kanji": {
+	"disable-scroll": true,
+	"show-special": false,
+	"all-outputs": true,
+	"format": "{icon}",
+    "persistent-workspaces": {
+      "*": 5
+	},
+	"format-icons": {
+		"1": "一",
+		"2": "二",
+		"3": "三",
+		"4": "四",
+		"5": "五",
+		"6": "六",
+		"7": "七",
+		"8": "八",
+		"9": "九",
+		"10": "十",
+	}
+},
+//  NUMBERS and ICONS style
+"hyprland/workspaces#4": {
+	"format": "{name}",
+	"format": " {name} {icon} ",
+	//"format": " {icon} ",
+	"show-special": false,
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+	"all-outputs": true,
+	"sort-by-number": true,
+	"format-icons": {
+		"1": " ",
+		"2": " ",
+		"3": " ",
+		"4": " ",
+		"5": " ",
+		"6": " ",
+		"7": "",
+		"8": " ",
+		"9": "",
+		"10": "10",
+		"focused": "",
+		"default": "",
+	},
+},
+// numbers styles
+"hyprland/workspaces#numbers": {
+	"active-only": false,
+	"all-outputs": true,
+	"format": "{icon}",
+	"show-special": false,
+	"on-click": "activate",
+	"on-scroll-up": "hyprctl dispatch workspace e+1",
+	"on-scroll-down": "hyprctl dispatch workspace e-1",
+    "persistent-workspaces": {
+      "*": 5
+	},
+	"format-icons": {
+		"1": "1",
+		"2": "2",
+		"3": "3",
+		"4": "4",
+		"5": "5",
+		"6": "6",
+		"class<VSCode|code|code-url-handler|code-oss|codium|codium-url-handler|VSCodium>": "󰨞 ",
+		"class<[Aa]ntigravity>": "󰨞 ",
+		"title<.*[Aa]ntigravity.*>": "󰨞 ",
+		"class<dev.zed.Zed>": "󰵁",
+		"class<codeblocks>": "󰅩 ",
+		"title<.*github.*>": " ",
+		"class<com-jetpackduba-gitnuro-MainKt>": " ",
+		"title<.*Gitnuro.*>": " ",
+		"class<mousepad>": " ",
+		"class<libreoffice-writer>": " ",
+		"class<libreoffice-startcenter>": "󰏆 ",
+		"class<libreoffice-calc>": " ",
+		"title<.*nvim ~.*>": " ",
+		"title<.*vim.*>": " ",
+		"title<.*nvim.*>": " ",
+		"title<.*figma.*>": " ",
+		"title<.*jira.*>": " ",
+		"class<jetbrains-idea>": " ",
+		"class<emacs|Emacs>": " ",
+
+		"class<obs|com.obsproject.Studio>": " ",
+
+		"class<polkit-gnome-authentication-agent-1>": "󰒃 ",
+		"class<nwg-look>": " ",
+		"class<nwg-displays>": " ",
+		"class<[Pp]avucontrol|org.pulseaudio.pavucontrol>": "󱡫 ",
+		"class<steam>": " ",
+		"class<thunar|nemo|org.gnome.Nautilus>": "󰝰 ",	
+		"class<Gparted>":"",
+		"class<gimp>": " ",
+		"class<emulator>": "📱 ",
+		"class<android-studio>": " ",
+		"class<org.pipewire.Helvum>": "󰓃",
+		"class<localsend>":"",
+		"class<PrusaSlicer|UltiMaker-Cura|OrcaSlicer>": "󰹛",
+		"class<nvidia-settings>": "󰢮 ",
+
+		"class<io.github.kolunmi.Bazaar>": " ",
+		"title<^Bazaar$>": " ",
+
+		"class<com.gabm.satty>": " ",
+		"title<^satty$>": " ",
+
+		"class<[Bb]ox[Bb]uddy|io.github.dvlv.boxbuddy|io.github.dvlv.BoxBuddy>": " ",
+		"title<.*BoxBuddy.*>": " ",
+
+		"title<Hyprland Keybinds>": " ",
+		"title<Niri Keybinds>": " ",
+		"title<BSPWM Keybinds>": " ",
+		"title<DWM Keybinds>": " ",
+		"title<Emacs Leader Keybinds>": " ",
+		"title<Kitty Configuration>": " ",
+		"title<WezTerm Configuration>": " ",
+		"title<Yazi Configuration>": " ",
+		"title<Cheatsheets Viewer>": " ",
+		"title<Documentation Viewer>": " ",
+		"title<^Wallpapers$>": " ",
+		"title<^Video Wallpapers$>": " ",
+		"title<^qs-wlogout$>": " ",
+		}
+	},
+}

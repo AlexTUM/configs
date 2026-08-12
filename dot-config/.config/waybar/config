@@ -1,0 +1,41 @@
+{
+"include": [
+  "$HOME/.config/waybar/Modules",
+  "$HOME/.config/waybar/ModulesWorkspaces",
+  "$HOME/.config/waybar/ModulesCustom",
+  "$HOME/.config/waybar/ModulesGroups",
+  "$HOME/.config/waybar/UserModules"
+],
+"layer": "top",
+"exclusive": true,
+"passthrough": false,
+"position": "top",
+"spacing": 3,
+"fixed-center": true,
+"ipc": true,
+
+"modules-left": [
+	"custom/cava_mviz",
+	"custom/playerctl",
+	"hyprland/window"
+],
+
+"modules-center": [
+	"custom/swaync",
+	"hyprland/workspaces#kanji",
+	"clock",
+	"custom/weather2",
+	"idle_inhibitor"
+],
+
+"modules-right": [
+	"network#speed",
+	"temperature",
+	"cpu",
+	"memory",
+	"disk",
+	"group/audio",
+	"custom/nightlight",
+	"custom/power"
+]
+}

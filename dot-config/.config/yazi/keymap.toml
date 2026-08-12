@@ -1,0 +1,14 @@
+[mgr]
+prepend_keymap = [
+ { on = "l", run = "plugin smart-enter", desc = "Enter the child directory, or open the file" },
+ { on = "p", run = "plugin smart-paste", desc = "Paste into hovered directory" },
+ { on = ["F", "G"], run = "plugin yafg", desc = "Fuzzy find in file contents and open file at line" },
+ { on = ["c", "m"], run = "plugin chmod", desc = "Chmod the selected file" },
+ { on = "<C-d>", run = "plugin diff", desc = "Diff selected file with hovered" },
+ { on = "T", run = "plugin toggle-pane max-preview", desc = "Maximase or restore preview pane" },
+ { on = ["c", "a", "a"], run = "plugin compress", desc = "Archive selected files" },
+ { on = ["c", "a", "l"], run = "plugin compress -l", desc = "Archive selected files (select compression level)" },
+ { on = ["g", "r"], run = "plugin cd-git-root", desc = "Go to git repo root" },
+ { on = ["g", "i"], run = "plugin lazygit", desc = "Run lazygit" },
+]
+

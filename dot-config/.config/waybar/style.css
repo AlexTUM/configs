@@ -1,0 +1,251 @@
+* {
+	font-family: "DejaVuSansM Nerd Font";
+	font-weight: bold;
+	min-height: 0;
+	font-size: 99%;
+}
+
+@import "./macchiato.css";
+@define-color accent @mauve;
+
+window#waybar {
+  	transition-property: background-color;
+  	transition-duration: 0.5s;
+  	background: @base_alpha;
+	color: @text;
+}
+
+.modules-left, .modules-right, .modules-center {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: @surface0; 
+ 	border: 1px solid @lavender;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 6px;
+	padding-left: 6px;
+	border-radius: 10px;
+} 
+
+.modules-left {
+	margin-left: 15px;
+}
+
+.modules-right {
+	margin-right: 15px;
+}
+
+window#waybar.hidden {
+  	opacity: 0.2;
+}
+
+window#waybar.empty,
+window#waybar.empty #window {
+    background-color: transparent;
+    padding: 0px;
+    border: 0px;
+}
+
+tooltip {
+	background-color: @surface_alpha;
+	border-radius: 10px;
+}
+
+tooltip label {
+	color: @lavender;
+}
+
+#workspaces {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+
+#workspaces button {
+	color: @overlay1;
+	box-shadow: none;
+	text-shadow: none;
+	padding: 0px;
+	border-radius: 9px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-left: 1px;
+	margin-right: 1px;
+	animation: gradient_f 20s ease-in infinite;
+	transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button:hover {
+	border-radius: 10px;
+	color: @peach;
+	background: @surface2;
+ 	padding-left: 2px;
+	padding-right: 2px;
+	animation: gradient_f 20s ease-in infinite;
+	transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.persistent {
+	color: @surface1;
+	border-radius: 10px;
+	min-width: 1ex;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+#workspaces button.active {
+	color: @accent;
+  	border-radius: 10px;
+	padding-left: 2px;
+	padding-right: 2px;
+	border: 1px solid @crust;
+	animation: gradient_f 20s ease-in infinite;
+	transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#workspaces button.urgent {
+	color: @red;
+ 	border-radius: 0px;
+}
+
+
+#backlight,
+#backlight-slider,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
+#disk,
+#idle_inhibitor,
+#keyboard-state,
+#memory,
+#mode,
+#mpris,
+#network,
+#power-profiles-daemon,
+#pulseaudio,
+#pulseaudio-slider,
+#temperature,
+#tray,
+#window,
+#wireplumber,
+#workspaces,
+#custom-backlight,
+#custom-nightlight,
+#custom-cava_mviz,
+#custom-nightlight,
+#custom-hypridle,
+#custom-playerctl,
+#custom-power,
+#custom-swaync,
+#custom-weather,
+#custom-weather2,
+#custom-weather.clearNight,
+#custom-weather.cloudyFoggyDay,
+#custom-weather.cloudyFoggyNight,
+#custom-weather.default, 
+#custom-weather.rainyDay,
+#custom-weather.rainyNight,
+#custom-weather.severe,
+#custom-weather.showyIcyDay,
+#custom-weather.snowyIcyNight,
+#custom-weather.sunnyDay {
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-right: 6px;
+	padding-left: 6px;
+}
+
+#idle_inhibitor.activated {
+	color: @red;
+}
+
+#bluetooth,
+#backlight {
+  color: @blue;
+}
+
+#battery {
+  color: @green;
+}
+
+@keyframes blink {
+  to {
+    color: @surface0;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: @red;
+  color: @theme_text_color;
+	animation-name: blink;
+	animation-duration: 3.0s;
+	animation-timing-function: steps(12);
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+  box-shadow: inset 0 -3px transparent;
+}
+
+#clock {
+  color: @rosewater;
+}
+
+#cpu,
+#custom-keyboard,
+#disk,
+#temperature,
+#pulseaudio,
+#pulseaudio.bluetooth,
+#window,
+#mpris,
+#network,
+#idle_inhibitor.deactivated,
+#custom-weather2,
+#custom-nightlight,
+#custom-swaync,
+#memory {
+  color: @lavender;
+}
+
+#temperature.critical {
+  background-color: @red;
+}
+
+#custom-cava_mviz {
+	color: @pink;
+}
+
+#custom-power {
+  color: @maroon;
+}
+
+#pulseaudio.muted {
+  color: @pink;
+}
+
+#network.disconnected,
+#network.disabled {
+  color: @red;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+	min-width: 0px;
+	min-height: 0px;
+	opacity: 0;
+	background-image: none;
+	border: none;
+	box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+	min-width: 80px;
+	min-height: 5px;
+	border-radius: 5px;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+	min-height: 10px;
+	border-radius: 5px;
+}

@@ -1,0 +1,10 @@
+[flavor]
+dark = "catppuccin-macchiato"
+light = "catppuccin-macchiato"
+
+[git]
+unknown_sign = " "
+modified_sign = "M"
+deleted_sign = "D"
+added_sign = "A"
+clean_sign = "✔"
