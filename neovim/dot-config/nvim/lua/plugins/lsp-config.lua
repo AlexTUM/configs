@@ -99,6 +99,10 @@ return {
     {
         "neovim/nvim-lspconfig",
         lazy = false,
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp",
+            "barreiroleo/ltex_extra.nvim",
+            },
         config = Basic_setup_lsp,
     },
 }
