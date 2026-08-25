@@ -3,12 +3,6 @@ function Basic_setup_null()
     local null_ls = require("null-ls")
     null_ls.setup({
         sources = {
-            -- Changing e.g. if statements to ternary, ...
-            null_ls.code_actions.ts_node_action,
-            -- Snippet engine
-            null_ls.completion.luasnip,
-            -- Tags completion
-            null_ls.completion.tags,
             -- Assembly code fmt
             null_ls.builtins.formatting.asmfmt,
             -- Bibtex database checker and sorter

@@ -31,7 +31,6 @@ end
 
 function Basic_setup_lsp()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local lspconfig = vim.lsp.config()
 
     local servers = {
         "lua_ls",
@@ -43,6 +42,7 @@ function Basic_setup_lsp()
         "docker_compose_language_service",
         "jsonls",
         "jdtls",
+        "ltex",
         "autotools_ls",
         "pylsp",
         "rust_analyzer",
@@ -57,8 +57,8 @@ function Basic_setup_lsp()
 
     -- latex specific options
     vim.lsp.config("ltex", {
-        cpabilities = capabilities,
-        on_attach = function(_, _)
+        capabilities = capabilities,
+        on_attach = function()
             require("ltex_extra").setup({
                 load_langs = { "en-US" },
             })
@@ -67,7 +67,7 @@ function Basic_setup_lsp()
 
     -- enable servers
     vim.lsp.enable(servers)
-    
+
     -- Buffer-local keymaps are better installed when an LSP attaches.
     vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(event)
