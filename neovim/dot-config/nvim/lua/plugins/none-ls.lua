@@ -28,9 +28,9 @@ function Basic_setup_null()
             -- Clang format 
             null_ls.builtins.formatting.clang_format,
             -- Cmake formatter
-            null_ls.builtins.formatting.cmake_formant,
+            null_ls.builtins.formatting.cmake_format,
             -- Rust formatter
-            null_ls.builtins.formatting.dxfmt,
+            null_ls.builtins.formatting.rustfmt,
             -- Canonical Terraform format and style
             null_ls.builtins.formatting.terraform_fmt,
             -- Python static code checking
@@ -62,7 +62,7 @@ function Basic_setup_null()
             -- Warnings for todo comments
             null_ls.builtins.diagnostics.todo_comments,
             -- definition for current word under cursor
-            null_ls.builtin.hover.dictionary,
+            null_ls.builtins.hover.dictionary,
             -- show value for current env variable under cursor
             null_ls.builtins.hover.printenv,
         }
@@ -75,5 +75,8 @@ end
 
 return {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
     config = Basic_setup_null,
 }

@@ -31,33 +31,54 @@ end
 
 function Basic_setup_lsp()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local lspconfig = require("lspconfig")
-    lspconfig.lua_ls.setup({ capabilities = capabilities })
-    lspconfig.typos_lsp.setup({ capabilities = capabilities })
-    lspconfig.bashls.setup({ capabilities = capabilities })
-    lspconfig.clangd.setup({ capabilities = capabilities })
-    lspconfig.neocmake.setup({ capabilities = capabilities })
-    lspconfig.dockerls.setup({ capabilities = capabilities })
-    lspconfig.docker_compose_language_service.setup({ capabilities = capabilities })
-    lspconfig.jsonls.setup({ capabilities = capabilities })
-    lspconfig.jdtls.setup({ capabilities = capabilities })
-    lspconfig.ltex.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
+    local lspconfig = vim.lsp.config()
+
+    local servers = {
+        "lua_ls",
+        "typos_lsp",
+        "bashls",
+        "clangd",
+        "neocmake",
+        "dockerls",
+        "docker_compose_language_service",
+        "jsonls",
+        "jdtls",
+        "autotools_ls",
+        "pylsp",
+        "rust_analyzer",
+        "terraformls",
+    }
+    -- common options for all servers
+    for _, server in ipairs(servers) do
+        vim.lsp.config(server, {
+            capabilities = capabilities,
+        })
+    end
+
+    -- latex specific options
+    vim.lsp.config("ltex", {
+        cpabilities = capabilities,
+        on_attach = function(_, _)
             require("ltex_extra").setup({
-                load_langs = { "en-US" }
+                load_langs = { "en-US" },
             })
         end,
     })
-    lspconfig.autotools_ls.setup({ capabilities = capabilities })
-    lspconfig.pylsp.setup({ capabilities = capabilities })
-    lspconfig.rust_analyzer.setup({ capabilities = capabilities })
-    lspconfig.terraformls.setup({ capabilities = capabilities })
 
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-    vim.keymap.set({'n', 'v'}, '<leader>ca', vim.lsp.buf.code_action, {})
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, {}, vim.lsp.buf.rename, {})
+    -- enable servers
+    vim.lsp.enable(servers)
+    
+    -- Buffer-local keymaps are better installed when an LSP attaches.
+    vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(event)
+            local opts = { buffer = event.buf, silent = true }
+
+            vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+            vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        end,
+    })
 end
 
 return {
