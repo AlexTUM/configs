@@ -1,25 +1,26 @@
 function Basic_setup_bc()
 	local bc = require("better-comment")
+    local colors = require("catppuccin.palettes").get_palette("macchiato")
 
 	bc.Setup({
 		tags = {
 			{
 				name = "TODO",
-				fg = "white",
-				bg = "#8c24ee",
+				fg = colors.peach,
+				bg = "",
 				bold = true,
 				virtual_text = "",
 			},
 			{
-				name = "FIX",
-				fg = "white",
-				bg = "#f44747",
+				name = "FIXME",
+				fg = colors.red,
+				bg = "",
 				bold = true,
-				virtual_text = "Critical",
+				virtual_text = "",
 			},
 			{
 				name = "?",
-				fg = "#24c3ee",
+				fg = colors.yellow,
 				bg = "",
 				bold = false,
 				virtual_text = "(Check later)",
@@ -32,11 +33,16 @@ return {
     -- toggle comments or insert comments at certain points
 	{
 		"numToStr/Comment.nvim",
+        event = "VeryLazy",
 		config = true,
 	},
     -- special formatting for comments with keywords
 	{
 		"Djancyp/better-comments.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "catppuccin/nvim",
+        },
 		config = Basic_setup_bc,
 	},
 }

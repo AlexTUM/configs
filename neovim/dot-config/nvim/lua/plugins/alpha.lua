@@ -1,4 +1,7 @@
-function Basic_setup_alpha()
+-- sets up a dashboard for opening nvim without a file in the cmdline
+-- Exports no keybinds (but displays some on the dashboard automatically)
+
+local function setup_alpha()
 
     local alpha = require("alpha")
     local dashboard = require("alpha.themes.dashboard")
@@ -30,5 +33,5 @@ return {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    config = Basic_setup_alpha,
+    config = setup_alpha,
 }

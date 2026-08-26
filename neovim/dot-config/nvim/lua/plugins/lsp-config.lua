@@ -1,3 +1,6 @@
+-- lsp servers for diagnostics etc.
+-- Requirements: npm, docker, cmake, gcc (others probably)
+
 function Basic_setup_mason()
 
     require("mason").setup({

@@ -1,6 +1,7 @@
-function Basic_setup_cat()
+-- colorscheme: catppuccin macchiato
 
-    vim.cmd.colorscheme "catppuccin"
+local function setup_cat()
+
     require("catppuccin").setup({
         flavour = "macchiato",
         styles = {
@@ -9,6 +10,11 @@ function Basic_setup_cat()
             keywords = { "bold" },
         },
         integrations = {
+            lualine = true,
+            mini = true,
+            alpha = true,
+            fzf = true,
+            treesitter_context = true,
             neotree = true,
             telescope = {
                 enabled = true,
@@ -16,13 +22,14 @@ function Basic_setup_cat()
         },
     })
 
+    vim.cmd.colorscheme "catppuccin-nvim"
 end
 
 return {
     "catppuccin/nvim",
     lazy = false,
-    name = "catpuccin",
+    name = "catppuccin",
     priority = 1000,
-    config = Basic_setup_cat
+    config = setup_cat
 }
 
