@@ -1,7 +1,6 @@
 -- colorscheme: catppuccin macchiato
 
 local function setup_cat()
-
     require("catppuccin").setup({
         flavour = "macchiato",
         styles = {
@@ -20,6 +19,24 @@ local function setup_cat()
                 enabled = true,
             },
         },
+        custom_highlights = function(colors)
+            return {
+                CmpPmenu = {
+                    bg = colors.mantle,
+                    fg = colors.text,
+                },
+
+                CmpPmenuBorder = {
+                    bg = colors.mantle,
+                    fg = colors.surface2,
+                },
+
+                CmpSel = {
+                    bg = colors.surface1,
+                    fg = colors.text,
+                },
+            }
+        end,
     })
 
     vim.cmd.colorscheme "catppuccin-nvim"
@@ -32,4 +49,3 @@ return {
     priority = 1000,
     config = setup_cat
 }
-

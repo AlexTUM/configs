@@ -1,4 +1,7 @@
-function Basic_setup_bc()
+-- commenting shortcuts and coloring
+-- comment.nvim comes with default keybinds
+
+local function setup_bc()
 	local bc = require("better-comment")
     local colors = require("catppuccin.palettes").get_palette("macchiato")
 
@@ -43,6 +46,6 @@ return {
         dependencies = {
             "catppuccin/nvim",
         },
-		config = Basic_setup_bc,
+		config = setup_bc,
 	},
 }

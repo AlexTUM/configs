@@ -1,4 +1,6 @@
-function Basic_setup_ipsum()
+-- Other utils: Lorem Ipsum for random text fillers
+
+local function setup_ipsum()
 	require("lorem").opts({
 		sentenceLength = "medium",
 		comma_chance = 0.2,
@@ -9,10 +11,6 @@ end
 return {
 	{
 		"derektata/lorem.nvim",
-		config = Basic_setup_ipsum,
+		config = setup_ipsum,
 	},
-    {
-        "nvimdev/indentmini.nvim",
-        config = true,
-    }
 }

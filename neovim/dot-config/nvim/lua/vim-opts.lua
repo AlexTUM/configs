@@ -1,7 +1,7 @@
-vim.cmd("set expandtab")
-vim.cmd("set tabstop=4")
-vim.cmd("set softtabstop=4")
-vim.cmd("set shiftwidth=4")
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.breakindent = true
@@ -12,12 +12,11 @@ vim.opt.splitright = true
 vim.opt.winblend = 10
 --vim.cmd("set foldcolumn=4")
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.opt.foldenable = false
 vim.opt.fdc = "auto:2"
 --vim.cmd.("foldcolumn = 'auto:[1]'")
 
-vim.keymap.set({'n', 'x'}, 'gy', '"+y')
-vim.keymap.set({'n', 'x'}, 'gp', '"+p')
+vim.keymap.set({'n', 'x'}, 'gy', '"+y', { desc = "Yank to system clipboard"})
+vim.keymap.set({'n', 'x'}, 'gp', '"+p', { desc = "Paste from system clipboard"})
 
-vim.cmd.highlight('IndentLine guifg=#756f81')
