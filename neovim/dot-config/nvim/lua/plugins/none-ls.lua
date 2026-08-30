@@ -1,5 +1,7 @@
-function Basic_setup_null()
+-- Formatting, diagnostics and other functions that integrate into LSP frontend
+-- keymap for file formatting
 
+local function setup_null()
     local null_ls = require("null-ls")
     null_ls.setup({
         sources = {
@@ -19,7 +21,7 @@ function Basic_setup_null()
             null_ls.builtins.formatting.shellharden,
             -- Shell formatter (with bash support)
             null_ls.builtins.formatting.shfmt,
-            -- Clang format 
+            -- Clang format
             null_ls.builtins.formatting.clang_format,
             -- Cmake formatter
             null_ls.builtins.formatting.cmake_format,
@@ -63,14 +65,12 @@ function Basic_setup_null()
     })
 
     vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, { desc = "LSP formatting of current file (None-LS)" })
-
 end
-
 
 return {
     "nvimtools/none-ls.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
-    config = Basic_setup_null,
+    config = setup_null,
 }

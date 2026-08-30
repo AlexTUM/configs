@@ -1,16 +1,17 @@
+-- manage delimiters
+-- keybinds for managing surrounding delimiters
+
 return {
-    -- Standard config of surround is sensible
-    -- pairs around motions
-	{
-		"kylechui/nvim-surround",
-		event = "VeryLazy",
-		config = true,
-	},
-    -- Standard config
-    -- create closing pairs
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
-	},
+    -- Add, delete, and change surrounding delimiters
+    {
+        "kylechui/nvim-surround",
+        event = "VeryLazy",
+        config = true,
+    },
+    -- auto insert and manage closing delimiters
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true,
+    },
 }
