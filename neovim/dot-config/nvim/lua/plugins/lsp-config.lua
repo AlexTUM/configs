@@ -1,7 +1,7 @@
 -- lsp servers for diagnostics etc.
 -- Requirements: npm, docker, cmake, gcc (others probably)
 
-function Basic_setup_mason()
+local function setup_mason()
 
     require("mason").setup({
         max_concurrent_installers = 6,
@@ -9,7 +9,7 @@ function Basic_setup_mason()
 
 end
 
-function Basic_setup_mlspconfig()
+local function setup_mlspconfig()
 
     require("mason-lspconfig").setup({
         ensure_installed = {
@@ -32,7 +32,7 @@ function Basic_setup_mlspconfig()
 
 end
 
-function Basic_setup_lsp()
+local function setup_lsp()
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     local servers = {
@@ -92,12 +92,12 @@ return {
     {
         "williamboman/mason.nvim",
         lazy = false,
-        config = Basic_setup_mason,
+        config = setup_mason,
     },
     {
         "williamboman/mason-lspconfig.nvim",
         lazy = false,
-        config = Basic_setup_mlspconfig,
+        config = setup_mlspconfig,
     },
     {
         "neovim/nvim-lspconfig",
@@ -106,6 +106,6 @@ return {
             "hrsh7th/cmp-nvim-lsp",
             "barreiroleo/ltex_extra.nvim",
             },
-        config = Basic_setup_lsp,
+        config = setup_lsp,
     },
 }

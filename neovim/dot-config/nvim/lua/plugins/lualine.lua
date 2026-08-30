@@ -1,4 +1,6 @@
-local function Basic_config_ll()
+-- lualine: statusline at bottom of buffer
+
+local function setup_ll()
     local colors = require("catppuccin.palettes").get_palette("macchiato")
 
     local theme = {
@@ -58,5 +60,5 @@ return {
             name = "catppuccin",
         },
     },
-    config = Basic_config_ll,
+    config = setup_ll,
 }

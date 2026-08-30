@@ -1,4 +1,5 @@
--- F5 for query editing
+-- Keybinds: F5 for query editing
+
 return {
     'cameron-wags/rainbow_csv.nvim',
     config = true,
