@@ -58,6 +58,23 @@ local function setup_lsp()
         })
     end
 
+    -- rustfmt via rust-analyzer
+    vim.lsp.config("rust_analyzer", {
+        capabilities = capabilities,
+        settings = {
+            ["rust-analyzer"] = {
+                rustfmt = {
+                    enable = true,
+                    -- overrideCommand = {
+                    --     "/usr/bin/rustfmt",
+                    --     "--emit",
+                    --     "stdout",
+                    -- },
+                },
+            },
+        },
+    })
+
     -- latex specific options
     vim.lsp.config("ltex", {
         capabilities = capabilities,

@@ -25,8 +25,6 @@ local function setup_null()
             null_ls.builtins.formatting.clang_format,
             -- Cmake formatter
             null_ls.builtins.formatting.cmake_format,
-            -- Rust formatter
-            null_ls.builtins.formatting.rustfmt,
             -- Canonical Terraform format and style
             null_ls.builtins.formatting.terraform_fmt,
             -- Python static code checking

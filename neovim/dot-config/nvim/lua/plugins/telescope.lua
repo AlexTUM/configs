@@ -1,12 +1,24 @@
+-- file finder and picker
+-- works to find files by name, grep, commits; finds keymaps, references, commands in history etc.
+-- keybinds to open UI in different modes
+
 local function setup_telescope()
     local telescope = require("telescope")
     local builtin = require("telescope.builtin")
+    local actions = require("telescope.actions")
 
     telescope.setup({
         extensions = {
             ["ui-select"] = {
                 require("telescope.themes").get_dropdown {
                 }
+            },
+        },
+        defaults = {
+            mappings = {
+                i = {
+                    ["<Esc>"] = actions.close,
+                },
             },
         },
     })

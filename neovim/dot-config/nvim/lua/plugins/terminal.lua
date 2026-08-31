@@ -1,44 +1,46 @@
--- function BasicTermSetup()
---     require("toggleterm").setup({
---         open_mapping=[[<leader>td]],
---         direction="float",
---         start_in_insert=true,
---         shade_filetypes={},
---         shell=vim.o.shell,
---         size=20,
---     })
--- end
+-- terminal window management
+-- keybinds to open tabbed, floating and split terminals
 
-function Set_term_keymaps()
-    local opts = {noremap = true}
-    vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<c-\><c-n>]], opts)
+local function set_term_keymaps(term)
+    vim.keymap.set("t", "<Esc>", function() term:toggle() end, {
+        buffer = term.bufnr,
+        silent = true,
+        desc = "Hide terminal",
+    })
 end
 
 return {
     "akinsho/toggleterm.nvim",
     version = "*",
     lazy = true,
-    cmd = { "ToggleTerm" },
+    cmd = { "ToggleTerm", "ToggleTermToggleAll" },
     keys = {
         {
-            "<leader>Tt",
+            "<C-t>",
             function()
-                require("toggleterm").toggle(1, 100, vim.loop.cwd(), "tab")
+                require("toggleterm").toggle(1, 10, vim.loop.cwd(), "horizontal")
+            end,
+            desc = "Toggle terminal at bottom",
+        },
+        {
+            "<leader>tt",
+            function()
+                local count = vim.v.count1 + 1
+                require("toggleterm").toggle(count, 100, vim.loop.cwd(), "tab", "tab-term-" .. count)
             end,
             desc = "Toggleterm tab",
         },
         {
-            "<leader>Tf",
+            "<leader>tf",
             function()
-                local count = vim.v.count1
-                require("toggleterm").toggle(count, 0, vim.loop.cwd(), "float")
+                require("toggleterm").toggle(0, 0, vim.loop.cwd(), "float")
             end,
             desc = "ToggleTerm float",
         },
     },
     opts = {
-        open_mapping = [[<c-t>]],
-        on_open = Set_term_keymaps,
+        open_mapping = false,
+        on_open = set_term_keymaps,
         hide_numbers = true,
         shade_filetypes = {},
         start_in_insert = true,
@@ -48,7 +50,8 @@ return {
             border = "curved",
         },
         persist_size = true,
-        direction = "window" or "float",
+        direction = "horizontal",
         close_on_exit = true,
+        dir = vim.uv.cwd(),
     },
 }
