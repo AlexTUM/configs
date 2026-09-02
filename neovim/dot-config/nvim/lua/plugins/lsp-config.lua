@@ -78,6 +78,9 @@ local function setup_lsp()
     -- latex specific options
     vim.lsp.config("ltex", {
         capabilities = capabilities,
+        cmd_env = {
+            JAVA_TOOL_OPTIONS = "-Djdk.xml.totalEntitySizeLimit=200000",
+        },
         on_attach = function()
             require("ltex_extra").setup({
                 load_langs = { "en-US" },

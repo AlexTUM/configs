@@ -1,0 +1,31 @@
+- alpha: dashboard
+- catppuccin: color scheme
+- Comment: insert/toggle comments
+- better-comments: special display of comments with keywords
+- nvim-cmp (+ dependencies): snippet engine
+- nvim-dap (+ nvim-dap-python): debugger integration with UI
+- indentmini: visualize indentation
+- nvim-lspconfig, mason, mason-lspconfig (+ dependencies): lsp integration
+- lualine: status line
+- neotree: file tree and git UI
+- nio: async IO versions of git functions
+- none-ls: formatting, diagnostics, etc. integrating into lsp
+- lorem: generate random text
+- nvim-surround: add, delete and change surrounding delimiters
+- nvim-autopairs: automatically add and manage closing delimiters
+- pasta: cycle through yanks when pasting, auto indent pastes
+- wildfire: auto select, expand and shrink treesitter nodes
+- persistence: session management
+- telescope (+ dependencies): file finder and picker (files, greps, keybinds, ...)
+- toggleterm: manage terminal buffers; open tabbed, floating, split
+- treesitter, treesitter-modules: parser generator
+- venv-selector: select python venvs
+- websearcher: search for selected text in browser
+- gitsigns: show added, modified, deleted lines on side; hunk and buffer git commands; diff highlighting; ...
+- diffview-plus: side-by-side for git diffs, merge conflict view and git file history inspection
+
+# not installed yet, but interesting:
+# - aerial: code outline with symbol table of the whole file
+# - gitlinker: create link to lines of file on the respective git host of the repo(e.g. github)
+# - lazygit: lazygit integration
+# - gitgraph: draw commit graph

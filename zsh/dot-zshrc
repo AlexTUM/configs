@@ -47,6 +47,8 @@ source <(fzf --zsh)
 
 # User configuration
 
+export JAVA_HOME=/usr/lib/jvm/default
+
 # compact fetch on shell startup
 if [[ -z "$NVIM" ]] &&
    command -v fastfetch >/dev/null 2>&1 &&
