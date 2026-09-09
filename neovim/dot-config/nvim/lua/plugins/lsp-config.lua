@@ -98,10 +98,27 @@ local function setup_lsp()
 					desc = "LSP: " .. desc,
 				})
 			end
+			-- Remove Neovim's automatic LSP mappings.
+			local function unmap(mode, lhs)
+				pcall(vim.keymap.del, mode, lhs, { buffer = buffer })
+			end
+
+			unmap("n", "K")
+			unmap("n", "grn")
+			unmap({ "n", "v" }, "gra")
+			unmap("n", "grr")
+			unmap("n", "gri")
+			unmap("n", "gO")
+			unmap({ "i", "s" }, "<C-s>")
+
 			map("n", "K", vim.lsp.buf.hover, "hover documentation")
 			map("n", "gd", vim.lsp.buf.definition, "Go to definition")
 			map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
 			map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+			map("n", "grr", vim.lsp.buf.references, "Find references")
+			map("n", "gri", vim.lsp.buf.implementation, "Go to implementation")
+			map("n", "gO", vim.lsp.buf.document_symbol, "Document symbols")
+			map({ "i", "s" }, "<C-s>", vim.lsp.buf.signature_help, "Signature help")
 		end,
 	})
 end
