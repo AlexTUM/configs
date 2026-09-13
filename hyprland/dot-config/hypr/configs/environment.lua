@@ -1,13 +1,5 @@
-local function hostname()
-    local pipe = io.popen("/bin/uname -n")
-    if not pipe then
-        return ""
-    end
-
-    local name = pipe:read("*l") or ""
-    pipe:close()
-    return name
-end
+local hl = require("hyprland")
+local hosts = require("hosts")
 
 local function set_env(name, value)
     hl.env(name, value)
@@ -44,11 +36,7 @@ set_env("MOZ_ENABLE_WAYLAND", "1")
 set_env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 -- NVIDIA-only environment variables
-local nvidia_hosts = {
-    ["alexdesk"] = true,
-}
-
-if nvidia_hosts[hostname()] then
+if hosts.is_nvidia then
     set_env("LIBVA_DRIVER_NAME", "nvidia")
     set_env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
     set_env("NVD_BACKEND", "direct")

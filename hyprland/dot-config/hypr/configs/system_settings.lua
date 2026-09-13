@@ -1,6 +1,7 @@
 -- System and layout settings
 
 local hl = require("hyprland")
+local hosts = require("hosts")
 
 local home = os.getenv("HOME") or ""
 local scripts_dir = home .. "/.config/hypr/scripts"
@@ -70,88 +71,97 @@ hl.config({
         left_handed = false,
         follow_mouse = 1,
         float_switch_override_focus = false,
+    },
+})
 
-        touchpad = {
-            disable_while_typing = true,
-            natural_scroll = true,
-            clickfinger_behavior = false,
-            middle_button_emulation = false,
-            tap_to_click = true,
-            drag_lock = false,
+-- setup touchpad on laptops
+if hosts.is_laptop then
+    hl.config({
+        input = {
+            touchpad = {
+                disable_while_typing = true,
+                natural_scroll = true,
+                clickfinger_behavior = false,
+                middle_button_emulation = false,
+                tap_to_click = true,
+                drag_lock = false,
+            },
         },
-    },
-})
+    })
+end
 
 -- ---------------------------------------------------------------------------
--- Gestures
+-- Gestures - Only for laptops
 -- ---------------------------------------------------------------------------
 
-hl.config({
-    gestures = {
-        workspace_swipe_distance = 300,
-        workspace_swipe_touch = false,
-        workspace_swipe_invert = true,
-        workspace_swipe_min_speed_to_force = 30,
-        workspace_swipe_cancel_ratio = 0.5,
-        workspace_swipe_create_new = true,
-        workspace_swipe_direction_lock = true,
-        workspace_swipe_forever = false,
-        workspace_swipe_use_r = false,
-        close_max_timeout = 100,
-    },
-})
+if hosts.is_laptop then
+    hl.config({
+        gestures = {
+            workspace_swipe_distance = 300,
+            workspace_swipe_touch = false,
+            workspace_swipe_invert = true,
+            workspace_swipe_min_speed_to_force = 30,
+            workspace_swipe_cancel_ratio = 0.5,
+            workspace_swipe_create_new = true,
+            workspace_swipe_direction_lock = true,
+            workspace_swipe_forever = false,
+            workspace_swipe_use_r = false,
+            close_max_timeout = 100,
+        },
+    })
 
-hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace",
-})
+    hl.gesture({
+        fingers = 3,
+        direction = "horizontal",
+        action = "workspace",
+    })
 
-hl.gesture({
-    fingers = 3,
-    direction = "up",
-    action = hl.dsp.exec_cmd(
-        [[
-        hyprctl keyword cursor:zoom_factor "$(
-            hyprctl getoption cursor:zoom_factor |
-            awk 'NR==1 {
-                factor = $2
-                if (factor < 1) factor = 1
-                print factor * 1.5
-            }'
-        )
-        ]]
-    ),
-})
+    hl.gesture({
+        fingers = 3,
+        direction = "up",
+        action = hl.dsp.exec_cmd(
+            [[
+            hyprctl keyword cursor:zoom_factor "$(
+                hyprctl getoption cursor:zoom_factor |
+                awk 'NR==1 {
+                    factor = $2
+                    if (factor < 1) factor = 1
+                    print factor * 1.5
+                }'
+            )
+            ]]
+        ),
+    })
 
-hl.gesture({
-    fingers = 3,
-    direction = "down",
-    action = hl.dsp.exec_cmd(
-        [[
-        hyprctl keyword cursor:zoom_factor "$(
-            hyprctl getoption cursor:zoom_factor |
-            awk 'NR==1 {
-                factor = $2
-                if (factor < 1) factor = 1
-                print factor / 1.5
-            }'
-        )
-        ]]
-    ),
-})
+    hl.gesture({
+        fingers = 3,
+        direction = "down",
+        action = hl.dsp.exec_cmd(
+            [[
+            hyprctl keyword cursor:zoom_factor "$(
+                hyprctl getoption cursor:zoom_factor |
+                awk 'NR==1 {
+                    factor = $2
+                    if (factor < 1) factor = 1
+                    print factor / 1.5
+                }'
+            )
+            ]]
+        ),
+    })
 
-hl.gesture({
-    fingers = 4,
-    direction = "up",
-    action = hl.dsp.exec_cmd(scripts_dir .. "/OverviewToggle.sh"),
-})
+    hl.gesture({
+        fingers = 4,
+        direction = "up",
+        action = hl.dsp.exec_cmd(scripts_dir .. "/OverviewToggle.sh"),
+    })
 
-hl.gesture({
-    fingers = 4,
-    direction = "down",
-    action = "float",
-})
+    hl.gesture({
+        fingers = 4,
+        direction = "down",
+        action = "float",
+    })
+end
 
 -- ---------------------------------------------------------------------------
 -- Miscellaneous behavior
@@ -209,7 +219,7 @@ hl.config({
     },
 
     render = {
-        direct_scanout = 0,
+        direct_scanout = 1,
     },
 })
 
@@ -221,8 +231,7 @@ hl.config({
     cursor = {
         sync_gsettings_theme = true,
 
-        -- Set to 1 only if hardware cursors cause graphical problems.
-        no_hardware_cursors = 1,
+        no_hardware_cursors = 0,
 
         enable_hyprcursor = true,
         warp_on_change_workspace = 2,
@@ -242,8 +251,21 @@ hl.config({
 
         hide_on_key_press = true,
         hide_on_touch = false,
-
-        use_cpu_buffer = 2,
     },
 })
+
+-- nvidia specific settings for rendering
+if hosts.is_nvidia then
+    hl.config({
+        render = {
+            direct_scanout = 0,
+        },
+
+        cursor = {
+            no_hardware_cursors = 1,
+            use_cpu_buffer = 2,
+        },
+    })
+end
+
 
