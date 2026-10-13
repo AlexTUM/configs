@@ -1,5 +1,5 @@
 -- keybinds.lua
-local hl = require("hyprland")
+-- local hl = require("hyprland")
 
 local mainMod = "SUPER"
 local scriptsDir = os.getenv("HOME") .. "/.config/hypr/scripts"
@@ -140,7 +140,6 @@ exec("XF86Sleep", "sleep", "systemctl suspend", { locked = true })
 exec("XF86Rfkill", "airplane mode", scriptsDir .. "/AirplaneMode.sh", { locked = true })
 
 -- Media controls using keyboards
-exec("XF86AudioPlayPause", "play/pause", scriptsDir .. "/MediaCtrl.sh --pause", { locked = true })
 exec("XF86AudioPause", "pause", scriptsDir .. "/MediaCtrl.sh --pause", { locked = true })
 exec("XF86AudioPlay", "play", scriptsDir .. "/MediaCtrl.sh --pause", { locked = true })
 exec("XF86AudioNext", "next track", scriptsDir .. "/MediaCtrl.sh --nxt", { locked = true })

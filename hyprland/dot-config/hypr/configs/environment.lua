@@ -1,5 +1,11 @@
-local hl = require("hyprland")
-local hosts = require("hosts")
+-- local hl = require("hyprland")
+
+
+
+
+
+
+local hosts = require("configs.hosts")
 
 local function set_env(name, value)
     hl.env(name, value)

@@ -1,8 +1,14 @@
 
+
+
+
+
+
+
 -- configs/laptop.lua
 
-local hl = require("hyprland")
-local hosts = require("hosts")
+-- local hl = require("hyprland")
+local hosts = require("configs.hosts")
 
 if not hosts.is_laptop then
     return

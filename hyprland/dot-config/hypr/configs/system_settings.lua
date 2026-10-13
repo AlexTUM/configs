@@ -1,7 +1,7 @@
 -- System and layout settings
 
-local hl = require("hyprland")
-local hosts = require("hosts")
+-- local hl = require("hyprland")
+local hosts = require("configs.hosts")
 
 local home = os.getenv("HOME") or ""
 local scripts_dir = home .. "/.config/hypr/scripts"

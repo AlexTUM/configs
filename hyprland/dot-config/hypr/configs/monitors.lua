@@ -1,7 +1,7 @@
 -- monitors.lua
 -- Monitor configuration
 
-local hl = require("hyprland")
+-- local hl = require("hyprland")
 
 -- Main monitor
 hl.monitor({

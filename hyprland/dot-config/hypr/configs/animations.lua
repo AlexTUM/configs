@@ -2,7 +2,7 @@
 
 -- animations.lua
 
-local hl = require("hyprland")
+-- local hl = require("hyprland")
 
 -- Custom Bézier curves
 hl.curve("wind", {

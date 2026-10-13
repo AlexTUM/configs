@@ -1,5 +1,5 @@
 
-local hl = require("hyprland")
+-- local hl = require("hyprland")
 
 local home = os.getenv("HOME") or ""
 local hypr_dir = home .. "/.config/hypr"
