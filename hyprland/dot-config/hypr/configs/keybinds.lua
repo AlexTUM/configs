@@ -10,13 +10,13 @@ local defaultFileManager = "thunar"
 local defaultTerminal = "kitty"
 
 local function bind(keys, description, dispatcher, options)
-	options = options or {}
-	options.description = description
-	hl.bind(keys, dispatcher, options)
+    options = options or {}
+    options.description = description
+    hl.bind(keys, dispatcher, options)
 end
 
 local function exec(keys, description, command, options)
-	bind(keys, description, hl.dsp.exec_cmd(command), options)
+    bind(keys, description, hl.dsp.exec_cmd(command), options)
 end
 
 -- Common shortcuts
@@ -43,33 +43,35 @@ exec(mainMod .. " + ALT + SPACE", "Float all windows", scriptsDir .. "/Float-all
 exec(mainMod .. " + SHIFT + Return", "DropDown terminal", scriptsDir .. "/Dropterminal.sh " .. defaultTerminal)
 
 -- Preserve the original Hyprland setprop command via hyprctl.
-exec(mainMod .. " + CTRL + O", "toggle active window opacity", "hyprctl dispatch setprop active opaque toggle")
+bind(mainMod .. " + CTRL + O", "toggle active window opacity", function()
+    hl.dispatch("setprop", "active", "opaque", "toggle")
+end)
 
 exec("ALT_L + SHIFT_L", "switch keyboard layout globally", scriptsDir .. "/KeyboardLayout.sh switch", { locked = true })
 exec(
-	"SHIFT_L + ALT_L",
-	"switch keyboard layout per-window",
-	scriptsDir .. "/Tak0-Per-Window-Switch.sh",
-	{ locked = true }
+    "SHIFT_L + ALT_L",
+    "switch keyboard layout per-window",
+    scriptsDir .. "/Tak0-Per-Window-Switch.sh",
+    { locked = true }
 )
 
 exec(mainMod .. " + ALT + C", "calculator", scriptsDir .. "/RofiCalc.sh")
 
 -- System
-exec("CTRL+ALT+Delete", "exit Hyprland", "hyprctl dispatch exit 0")
+bind("CTRL + ALT + Delete", "exit Hyprland", hl.dsp.exit())
 exec(mainMod .. "+L", "lock screen", scriptsDir .. "/LockScreen.sh")
 exec("CTRL+ALT+P", "powermenu", scriptsDir .. "/Wlogout.sh")
 
 -- Desktop zooming or magnifier
 exec(
-	mainMod .. " + ALT + mouse_down",
-	"zoom in",
-	[[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor * 2.0}')]]
+    mainMod .. " + ALT + mouse_down",
+    "zoom in",
+    [[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor * 2.0}')]]
 )
 exec(
-	mainMod .. " + ALT + mouse_up",
-	"zoom out",
-	[[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor / 2.0}')]]
+    mainMod .. " + ALT + mouse_up",
+    "zoom out",
+    [[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor / 2.0}')]]
 )
 
 -- Waybar / Bar related
@@ -79,14 +81,14 @@ exec(mainMod .. " + CTRL + ALT + B", "toggle waybar on/off", "pkill -SIGUSR1 way
 exec(mainMod .. " + N", "toggle night light", scriptsDir .. "/Hyprsunset.sh toggle")
 
 -- Move current workspaces to monitors
-exec(mainMod .. " + CTRL + F9", "move workspace to left monitor", "hyprctl dispatch movecurrentworkspacetomonitor l")
-exec(mainMod .. " + CTRL + F10", "move workspace to right monitor", "hyprctl dispatch movecurrentworkspacetomonitor r")
-exec(mainMod .. " + CTRL + F11", "move workspace to up monitor", "hyprctl dispatch movecurrentworkspacetomonitor u")
-exec(mainMod .. " + CTRL + F12", "move workspace to down monitor", "hyprctl dispatch movecurrentworkspacetomonitor d")
+bind(mainMod .. " + CTRL + F9", "move workspace to left monitor", hl.dsp.workspace.move({ monitor = "left" }))
+bind(mainMod .. " + CTRL + F10", "move workspace to right monitor", hl.dsp.workspace.move({ monitor = "right" }))
+bind(mainMod .. " + CTRL + F11", "move workspace to up monitor", hl.dsp.workspace.move({ monitor = "up" }))
+bind(mainMod .. " + CTRL + F12", "move workspace to down monitor", hl.dsp.workspace.move({ monitor = "down" }))
 
 -- SYSTEM
-exec("CTRL + ALT + Delete", "exit Hyprland", "hyprctl dispatch exit 0")
-exec(mainMod .. " + Q", "close active window", "hyprctl dispatch killactive")
+bind("CTRL + ALT + Delete", "exit Hyprland", hl.dsp.exit())
+bind(mainMod .. " + Q", "close active window", hl.dsp.window.close())
 exec(mainMod .. " + SHIFT + Q", "Terminate active process", scriptsDir .. "/KillActiveProcess.sh")
 exec(mainMod .. " + L", "lock screen", scriptsDir .. "/LockScreen.sh")
 exec("CTRL + ALT + P", "powermenu", scriptsDir .. "/Wlogout.sh")
@@ -103,7 +105,7 @@ bind(mainMod .. " + CTRL + Return", "swap with master", hl.dsp.layout("swapwithm
 
 -- Dwindle Layout
 bind(mainMod .. " + SHIFT + I", "toggle split (dwindle)", hl.dsp.layout("togglesplit"))
-exec(mainMod .. " + P", "toggle pseudo (dwindle)", "hyprctl dispatch pseudo")
+bind(mainMod .. " + P", "toggle pseudo (dwindle)", hl.dsp.window.pseudo())
 
 -- Layout-aware keybinds: run when this Lua config is loaded.
 hl.exec_cmd(scriptsDir .. "/ChangeLayout.sh init")
@@ -122,16 +124,16 @@ exec("ALT + Tab", "bring active to top", "hyprctl dispatch bringactivetotop")
 exec("XF86AudioRaiseVolume", "volume up", scriptsDir .. "/Volume.sh --inc", { locked = true, repeating = true })
 exec("XF86AudioLowerVolume", "volume down", scriptsDir .. "/Volume.sh --dec", { locked = true, repeating = true })
 exec(
-	"ALT + XF86AudioRaiseVolume",
-	"volume up precise",
-	scriptsDir .. "/Volume.sh --inc-precise",
-	{ locked = true, repeating = true }
+    "ALT + XF86AudioRaiseVolume",
+    "volume up precise",
+    scriptsDir .. "/Volume.sh --inc-precise",
+    { locked = true, repeating = true }
 )
 exec(
-	"ALT + XF86AudioLowerVolume",
-	"volume down precise",
-	scriptsDir .. "/Volume.sh --dec-precise",
-	{ locked = true, repeating = true }
+    "ALT + XF86AudioLowerVolume",
+    "volume down precise",
+    scriptsDir .. "/Volume.sh --dec-precise",
+    { locked = true, repeating = true }
 )
 
 exec("XF86AudioMicMute", "toggle mic mute", scriptsDir .. "/Volume.sh --toggle-mic", { locked = true })
@@ -152,84 +154,111 @@ exec(mainMod .. " + Print", "screenshot window", "hyprshot -m window")
 exec(mainMod .. " + ALT + Print", "screenshot active", "hyprshot -m active")
 exec(mainMod .. " + CTRL + Print", "screenshot monitor", "hyprshot -m output")
 
--- Resize windows
-exec(mainMod .. " + SHIFT + Left", "resize left (-50)", "hyprctl dispatch resizeactive -50 0", { repeating = true })
-exec(mainMod .. " + SHIFT + Right", "resize right (+50)", "hyprctl dispatch resizeactive 50 0", { repeating = true })
-exec(mainMod .. " + SHIFT + Up", "resize up (-50)", "hyprctl dispatch resizeactive 0 -50", { repeating = true })
-exec(mainMod .. " + SHIFT + Down", "resize down (+50)", "hyprctl dispatch resizeactive 0 50", { repeating = true })
-
 -- Move windows
-exec(mainMod .. " + CTRL + Left", "move window left", "hyprctl dispatch movewindow l")
-exec(mainMod .. " + CTRL + Right", "move window right", "hyprctl dispatch movewindow r")
-exec(mainMod .. " + CTRL + Up", "move window up", "hyprctl dispatch movewindow u")
-exec(mainMod .. " + CTRL + Down", "move window down", "hyprctl dispatch movewindow d")
+bind(mainMod .. " + CTRL + left", "move window left", hl.dsp.window.move({ direction = "left" }))
+bind(mainMod .. " + CTRL + right", "move window right", hl.dsp.window.move({ direction = "right" }))
+bind(mainMod .. " + CTRL + up", "move window up", hl.dsp.window.move({ direction = "up" }))
+bind(mainMod .. " + CTRL + down", "move window down", hl.dsp.window.move({ direction = "down" }))
+
+-- Resize windows by 50 px
+bind(
+    mainMod .. " + SHIFT + left",
+    "resize left (-50)",
+    hl.dsp.window.resize({ x = -50, y = 0, relative = true }),
+    { repeating = true }
+)
+bind(
+    mainMod .. " + SHIFT + right",
+    "resize right (+50)",
+    hl.dsp.window.resize({ x = 50, y = 0, relative = true }),
+    { repeating = true }
+)
+bind(
+    mainMod .. " + SHIFT + up",
+    "resize up (-50)",
+    hl.dsp.window.resize({ x = 0, y = -50, relative = true }),
+    { repeating = true }
+)
+bind(
+    mainMod .. " + SHIFT + down",
+    "resize down (+50)",
+    hl.dsp.window.resize({ x = 0, y = 50, relative = true }),
+    { repeating = true }
+)
 
 -- Swap windows
-exec(mainMod .. " + ALT + Left", "swap window left", "hyprctl dispatch swapwindow l")
-exec(mainMod .. " + ALT + Right", "swap window right", "hyprctl dispatch swapwindow r")
-exec(mainMod .. " + ALT + Up", "swap window up", "hyprctl dispatch swapwindow u")
-exec(mainMod .. " + ALT + Down", "swap window down", "hyprctl dispatch swapwindow d")
-
--- Group
-exec(mainMod .. " + G", "toggle group", "hyprctl dispatch togglegroup")
-
--- Navigate within a group
-exec(mainMod .. " + Tab", "Change Group Forward", "hyprctl dispatch changegroupactive f")
-exec(mainMod .. " + CTRL + Tab", "change active in group", "hyprctl dispatch changegroupactive")
-exec(mainMod .. " + ALT + Tab", "Change Group Back", "hyprctl dispatch changegroupactive b")
-
--- Move window into/out of group
-exec(mainMod .. " + CTRL + K", "Move left into group", "hyprctl dispatch movewindoworgroup l")
-exec(mainMod .. " + CTRL + L", "Move Right into group", "hyprctl dispatch movewindoworgroup r")
-exec(mainMod .. " + CTRL + H", "Move active out of group", "hyprctl dispatch moveoutofgroup")
+bind(mainMod .. " + ALT + left", "swap window left", hl.dsp.window.swap({ direction = "left" }))
+bind(mainMod .. " + ALT + right", "swap window right", hl.dsp.window.swap({ direction = "right" }))
+bind(mainMod .. " + ALT + up", "swap window up", hl.dsp.window.swap({ direction = "up" }))
+bind(mainMod .. " + ALT + down", "swap window down", hl.dsp.window.swap({ direction = "down" }))
 
 -- Move focus
-exec(mainMod .. " + Left", "focus left", "hyprctl dispatch movefocus l")
-exec(mainMod .. " + Right", "focus right", "hyprctl dispatch movefocus r")
-exec(mainMod .. " + Up", "focus up", "hyprctl dispatch movefocus u")
-exec(mainMod .. " + Down", "focus down", "hyprctl dispatch movefocus d")
+bind(mainMod .. " + left", "focus left", hl.dsp.focus({ direction = "left" }))
+bind(mainMod .. " + right", "focus right", hl.dsp.focus({ direction = "right" }))
+bind(mainMod .. " + up", "focus up", hl.dsp.focus({ direction = "up" }))
+bind(mainMod .. " + down", "focus down", hl.dsp.focus({ direction = "down" }))
+
+-- Group
+bind(mainMod .. " + G", "toggle group", hl.dsp.group.toggle())
+bind(mainMod .. " + CTRL + Tab", "change active in group", hl.dsp.group.next())
+bind(mainMod .. " + ALT + Tab", "change group back", hl.dsp.group.prev())
+
+-- Move window into / out of a group
+bind(mainMod .. " + CTRL + K", "move left into group", hl.dsp.window.move({ into_group = "left" }))
+bind(mainMod .. " + CTRL + L", "move right into group", hl.dsp.window.move({ into_group = "right" }))
+bind(
+    mainMod .. " + CTRL + H",
+    "move active out of group to the left",
+    hl.dsp.window.move({ direction = "left", group_aware = true })
+)
 
 -- Workspaces related
-exec(mainMod .. " + Tab", "next workspace", "hyprctl dispatch workspace m+1")
-exec(mainMod .. " + SHIFT + Tab", "previous workspace", "hyprctl dispatch workspace m-1")
+bind(mainMod .. " + Tab", "next workspace", hl.dsp.focus({ workspace = "m+1" }))
+bind(mainMod .. " + SHIFT + Tab", "previous workspace", hl.dsp.focus({ workspace = "m-1" }))
 
 -- Special workspace
-exec(mainMod .. " + SHIFT + U", "move to special workspace", "hyprctl dispatch movetoworkspace special")
-exec(mainMod .. " + U", "toggle special workspace", "hyprctl dispatch togglespecialworkspace")
+bind(mainMod .. " + SHIFT + U", "move to special workspace", hl.dsp.window.move({ workspace = "special" }))
+bind(mainMod .. " + U", "toggle special workspace", hl.dsp.workspace.toggle_special())
 
 -- Workspace keycodes: code:10 through code:19 map to workspaces 1 through 10.
 for workspace = 1, 10 do
-	local code = workspace + 9
+    local code = workspace + 9
 
-	exec(mainMod .. " + code:" .. code, "workspace " .. workspace, "hyprctl dispatch workspace " .. workspace)
+    bind(mainMod .. " + code:" .. code, "workspace " .. workspace, hl.dsp.focus({ workspace = workspace }))
 
-	exec(
-		mainMod .. " + SHIFT + code:" .. code,
-		"move to workspace " .. workspace,
-		"hyprctl dispatch movetoworkspace " .. workspace
-	)
+    bind(
+        mainMod .. " + SHIFT + code:" .. code,
+        "move to workspace " .. workspace,
+        hl.dsp.window.move({ workspace = workspace })
+    )
 
-	exec(
-		mainMod .. " + CTRL + code:" .. code,
-		"move silently to workspace " .. workspace,
-		"hyprctl dispatch movetoworkspacesilent " .. workspace
-	)
+    bind(
+        mainMod .. " + CTRL + code:" .. code,
+        "move silently to workspace " .. workspace,
+        hl.dsp.window.move({ workspace = workspace, silent = true })
+    )
 end
 
 -- Move to previous/next workspace
-exec(mainMod .. " + SHIFT + Comma", "move to previous workspace", "hyprctl dispatch movetoworkspace -1")
-exec(mainMod .. " + SHIFT + Period", "move to next workspace", "hyprctl dispatch movetoworkspace +1")
-
--- Move silently to previous/next workspace
-exec(mainMod .. " + CTRL + Comma", "move silently to previous workspace", "hyprctl dispatch movetoworkspacesilent -1")
-exec(mainMod .. " + CTRL + Period", "move silently to next workspace", "hyprctl dispatch movetoworkspacesilent +1")
+bind(mainMod .. " + SHIFT + Comma", "move to previous workspace", hl.dsp.window.move({ workspace = "-1" }))
+bind(mainMod .. " + SHIFT + Period", "move to next workspace", hl.dsp.window.move({ workspace = "+1" }))
+bind(
+    mainMod .. " + CTRL + Comma",
+    "move silently to previous workspace",
+    hl.dsp.window.move({ workspace = "-1", silent = true })
+)
+bind(
+    mainMod .. " + CTRL + Period",
+    "move silently to next workspace",
+    hl.dsp.window.move({ workspace = "+1", silent = true })
+)
 
 -- Scroll through existing workspaces
-exec(mainMod .. " + mouse_down", "next workspace", "hyprctl dispatch workspace e+1")
-exec(mainMod .. " + mouse_up", "previous workspace", "hyprctl dispatch workspace e-1")
-exec(mainMod .. " + Period", "next workspace", "hyprctl dispatch workspace e+1")
-exec(mainMod .. " + Comma", "previous workspace", "hyprctl dispatch workspace e-1")
+bind(mainMod .. " + mouse_down", "next workspace", hl.dsp.focus({ workspace = "e+1" }))
+bind(mainMod .. " + mouse_up", "previous workspace", hl.dsp.focus({ workspace = "e-1" }))
+bind(mainMod .. " + Period", "next workspace", hl.dsp.focus({ workspace = "e+1" }))
+bind(mainMod .. " + Comma", "previous workspace", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-exec(mainMod .. " + mouse:272", "move window", "hyprctl dispatch movewindow", { drag = true })
-exec(mainMod .. " + mouse:273", "resize window", "hyprctl dispatch resizewindow", { drag = true })
+bind(mainMod .. " + mouse:272", "move window", hl.dsp.window.drag(), { mouse = true, drag = true })
+bind(mainMod .. " + mouse:273", "resize window", hl.dsp.window.resize(), { mouse = true, drag = true })
