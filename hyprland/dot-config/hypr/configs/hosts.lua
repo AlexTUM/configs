@@ -13,15 +13,31 @@ local function get_hostname()
     return name
 end
 
+local function load_hosts(path)
+    local hosts = {}
+    local file = io.open(path, "r")
+
+    if not file then
+        return hosts
+    end
+
+    for line in file:lines() do
+        local read_hostname = line:match("^%s*(.-)%s*$")
+        if read_hostname ~= "" and not line:match("^#") then
+            hosts[read_hostname] = true
+        end
+    end
+
+    file:close()
+    return hosts
+end
+
 local hostname = get_hostname()
+local laptop_hosts = load_hosts(os.getenv("HOME") .. "/.config/hypr/laptops.txt")
 
 -- Hosts with NVIDIA-specific configuration.
 local nvidia_hosts = {
     alexdesk = true,
-}
-
--- Hosts that are laptops.
-local laptop_hosts = {
 }
 
 return {
