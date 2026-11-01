@@ -130,3 +130,27 @@ hl.animation({
     bezier = "winOut",
     style = "slide",
 })
+
+hl.animation({
+    leaf = "specialWorkspace",
+    enabled = true,
+    speed = 5,
+    bezier = "smoothOut",
+    style = "slidefadevert -50%",
+})
+
+hl.animation({
+    leaf = "specialWorkspaceIn",
+    enabled = true,
+    speed = 5,
+    bezier = "smoothOut",
+    style = "slidefadevert -50%",
+})
+
+hl.animation({
+    leaf = "specialWorkspaceOut",
+    enabled = true,
+    speed = 5,
+    bezier = "smoothOut",
+    style = "slidefadevert -50%",
+})

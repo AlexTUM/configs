@@ -37,7 +37,7 @@ hl.config({
 
         dim_inactive = true,
         dim_strength = 0.1,
-        dim_special = 0.8,
+        dim_special = 0.0,
 
         shadow = {
             enabled = true,
@@ -69,6 +69,17 @@ hl.config({
             col = {
                 active = colors.surface0,
             },
+        },
+    },
+})
+
+hl.config({
+    decoration = {
+        blur = {
+            enabled = true,
+            special = true,
+            size = 6,
+            passes = 3,
         },
     },
 })

@@ -40,7 +40,7 @@ bind(mainMod .. " + SHIFT + F", "fullscreen", hl.dsp.window.fullscreen())
 bind(mainMod .. " + CTRL + F", "maximize window", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }))
 bind(mainMod .. " + SPACE", "Float current window", hl.dsp.window.float({ action = "toggle" }))
 exec(mainMod .. " + ALT + SPACE", "Float all windows", scriptsDir .. "/Float-all-Windows.sh")
-exec(mainMod .. " + SHIFT + Return", "DropDown terminal", scriptsDir .. "dropdown-terminal.sh ")
+exec(mainMod .. " + SHIFT + Return", "DropDown terminal", scriptsDir .. "/dropdown-terminal.sh")
 
 -- Preserve the original Hyprland setprop command via hyprctl.
 bind(mainMod .. " + CTRL + O", "toggle active window opacity", function()
