@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
-# ==================================================
-#  KoolDots (2026)
-#  Project URL: https://github.com/LinuxBeginnings
-#  License: GNU GPLv3
-#  SPDX-License-Identifier: GPL-3.0-or-later
-# ==================================================
-for i in {0..3}; do
-  if [ -f /sys/class/power_supply/BAT$i/capacity ]; then
-    battery_level=$(cat /sys/class/power_supply/BAT$i/status)
-    battery_capacity=$(cat /sys/class/power_supply/BAT$i/capacity)
-    echo "Battery: $battery_capacity% ($battery_level)"
-  fi
+set -euo pipefail
+
+shopt -s nullglob
+capacity_files=(/sys/class/power_supply/BAT*/capacity)
+
+for capacity_file in "${capacity_files[@]}"; do
+    battery_dir=${capacity_file%/capacity}
+    capacity=$(<"$capacity_file")
+    status="Unknown"
+
+    if [[ -r "$battery_dir/status" ]]; then
+        status=$(<"$battery_dir/status")
+    fi
+
+    printf 'Battery: %s%% (%s)\n' "$capacity" "$status"
 done

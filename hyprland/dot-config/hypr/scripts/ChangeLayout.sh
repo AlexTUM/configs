@@ -6,6 +6,7 @@
 #  SPDX-License-Identifier: GPL-3.0-or-later
 # ==================================================
 # for changing Hyprland Layouts (master, dwindle, scrolling, monocle) on the fly
+set -euo pipefail
 
 notif="$HOME/.config/swaync/images/ja.png"
 
@@ -93,20 +94,21 @@ set_layout() {
 }
 
 current="$(get_layout)"
-arg="${1:-toggle}"
+target="${1:-toggle}"
 
-case "$arg" in
+case "$target" in
 init)
-  set_layout "$current"
+  target=$(hyprctl -j getoption general:layout | jq -er '.str')
   ;;
 toggle|next)
-  set_layout "$(next_layout "$current")"
-  ;;
-master|dwindle|scrolling|monocle)
-  set_layout "$arg"
-  ;;
-*)
-  echo "Usage: $(basename "$0") [toggle|next|init|master|dwindle|scrolling|monocle]" >&2
-  exit 1
+  current=$(hyprctl -j getoption general:layout | jq -er '.str')
+  target=$(next_layout "$current")
   ;;
 esac
+
+if [[ ! " ${layouts[*]} " == *" $target "* ]]; then
+    printf 'Unsupported layout: %s\n' "$target" >&2
+    exit 1
+fi
+
+set_layout "$target"

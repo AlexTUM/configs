@@ -1,21 +1,14 @@
 #!/usr/bin/env bash
-# ==================================================
-#  KoolDots (2026)
-#  Project URL: https://github.com/LinuxBeginnings
-#  License: GNU GPLv3
-#  SPDX-License-Identifier: GPL-3.0-or-later
-# ==================================================
-# Airplane Mode. Turning on or off all wifi using rfkill. 
+set -euo pipefail
 
 notif="$HOME/.config/swaync/images/ja.png"
+wifi_state=$(nmcli -t -f WIFI radio)
 
-# Check if any wireless device is blocked
-wifi_blocked=$(rfkill list wifi | grep -o "Soft blocked: yes")
-
-if [ -n "$wifi_blocked" ]; then
-    rfkill unblock wifi
-    notify-send -u low -i "$notif" " Airplane" " mode: OFF"
+if [[ "$wifi_state" == "enabled" ]]; then
+    nmcli radio wifi off
+    notify-send -u low -i "$notif" "Airplane mode" "Wi-Fi: off"
 else
-    rfkill block wifi
-    notify-send -u low -i "$notif" " Airplane" " mode: ON"
+    nmcli radio wifi on
+    notify-send -u low -i "$notif" "Airplane mode" "Wi-Fi: on"
 fi
+

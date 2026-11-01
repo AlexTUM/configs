@@ -7,48 +7,43 @@
 # ==================================================
 # Clipboard Manager. This script uses cliphist, rofi, and wl-copy.
 
-# Variables
-rofi_theme="$HOME/.config/rofi/config-clipboard.rasi"
-msg='👀 **note**  CTRL DEL = cliphist del (entry)   or   ALT DEL - cliphist wipe (all)'
-# Actions:
-# CTRL Del to delete an entry
-# ALT Del to wipe clipboard contents
+set -u
 
-# Check if rofi is already running
-if pidof rofi > /dev/null; then
-  pkill rofi
+rofi_theme="$HOME/.config/rofi/config-clipboard.rasi"
+msg='note: Ctrl+Delete = delete entry; Alt+Delete = wipe history'
+
+# Optional toggle behavior: close this picker instead of launching another.
+if pkill -x rofi 2>/dev/null; then
+    exit 0
 fi
 
 while true; do
     result=$(
         rofi -i -dmenu \
-            -kb-custom-1 "Control-Delete" \
-            -kb-custom-2 "Alt-Delete" \
-            -config $rofi_theme < <(cliphist list) \
-			-mesg "$msg" 
+            -kb-custom-1 'Control+Delete' \
+            -kb-custom-2 'Alt+Delete' \
+            -config "$rofi_theme" \
+            -mesg "$msg" \
+            < <(cliphist list)
     )
+    status=$?
 
-    case "$?" in
-        1)
+    case "$status" in
+        1) exit 0 ;;  # Escape/cancel
+        0)
+            [[ -z "$result" ]] && continue
+            printf '%s\n' "$result" | cliphist decode | wl-copy
             exit
             ;;
-        0)
-            case "$result" in
-                "")
-                    continue
-                    ;;
-                *)
-                    cliphist decode <<<"$result" | wl-copy
-                    exit
-                    ;;
-            esac
-            ;;
         10)
-            cliphist delete <<<"$result"
+            [[ -n "$result" ]] && printf '%s\n' "$result" | cliphist delete
             ;;
         11)
             cliphist wipe
             ;;
+        *)
+            printf 'Rofi exited with status %s\n' "$status" >&2
+            exit "$status"
+            ;;
     esac
 done
-
