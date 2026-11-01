@@ -584,3 +584,13 @@ hl.window_rule({
 	center = true,
 	size = "monitor_w*0.6 monitor_h*0.6",
 })
+
+hl.window_rule({
+    name = "dropdown-kitty",
+    match = { class = "^kitty-dropdown$" },
+    float = true,
+    center = true,
+    workspace = "special:dropdown",
+    suppress_event = "maximize",
+})
+

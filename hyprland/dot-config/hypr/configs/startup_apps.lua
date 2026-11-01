@@ -18,7 +18,6 @@ hl.on("hyprland.start", function()
     startup("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 
     -- Desktop services
-    startup(scripts_dir .. "/Dropterminal.sh kitty")
     startup(scripts_dir .. "/Polkit.sh")
     startup("nm-applet --indicator")
     startup("swaync")
