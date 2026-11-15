@@ -6,9 +6,11 @@
 -- Main monitor
 hl.monitor({
     output = "DP-2",
-    mode = "2560x1440@99.95",
+    --mode = "2560x1440@99.95",
+    mode = "2560x1440@59.95",
     position = "0x0",
     scale = 1.0,
+    supports_hdr = -1,
 })
 
 -- Secondary monitor

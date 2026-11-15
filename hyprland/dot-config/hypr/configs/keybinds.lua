@@ -62,18 +62,6 @@ bind("CTRL + ALT + Delete", "exit Hyprland", hl.dsp.exit())
 exec(mainMod .. "+L", "lock screen", scriptsDir .. "/LockScreen.sh")
 exec("CTRL+ALT+P", "powermenu", scriptsDir .. "/Wlogout.sh")
 
--- Desktop zooming or magnifier
-exec(
-    mainMod .. " + ALT + mouse_down",
-    "zoom in",
-    [[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor * 2.0}')]]
-)
-exec(
-    mainMod .. " + ALT + mouse_up",
-    "zoom out",
-    [[hyprctl keyword cursor:zoom_factor "$(hyprctl getoption cursor:zoom_factor | awk 'NR==1 {factor = $2; if (factor < 1) {factor = 1}; print factor / 2.0}')]]
-)
-
 -- Waybar / Bar related
 exec(mainMod .. " + CTRL + ALT + B", "toggle waybar on/off", "pkill -SIGUSR1 waybar")
 
@@ -260,5 +248,5 @@ bind(mainMod .. " + Period", "next workspace", hl.dsp.focus({ workspace = "e+1" 
 bind(mainMod .. " + Comma", "previous workspace", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-bind(mainMod .. " + mouse:272", "move window", hl.dsp.window.drag(), { mouse = true, drag = true })
-bind(mainMod .. " + mouse:273", "resize window", hl.dsp.window.resize(), { mouse = true, drag = true })
+bind(mainMod .. " + mouse:272", "move window", hl.dsp.window.drag(), { mouse = true })
+bind(mainMod .. " + mouse:273", "resize window", hl.dsp.window.resize(), { mouse = true })
