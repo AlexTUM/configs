@@ -22,7 +22,6 @@ hl.config({
 
         split_bias = 0,
         precise_mouse_move = false,
-        special_scale_factor = 0.8,
     },
 
     master = {

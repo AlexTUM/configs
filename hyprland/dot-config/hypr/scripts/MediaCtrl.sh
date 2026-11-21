@@ -1,67 +1,77 @@
 #!/usr/bin/env bash
-# ==================================================
-#  KoolDots (2026)
-#  Project URL: https://github.com/LinuxBeginnings
-#  License: GNU GPLv3
-#  SPDX-License-Identifier: GPL-3.0-or-later
-# ==================================================
-# Playerctl
 
 music_icon="$HOME/.config/swaync/icons/music.png"
 
-# Play the next track
-play_next() {
-  playerctl next
-  show_music_notification
+notify() {
+  local summary=$1
+  local body=$2
+  local -a options=(-u low --transient)
+
+  [[ -r "$music_icon" ]] && options+=(-i "$music_icon")
+  notify-send "${options[@]}" "$summary" "$body"
 }
 
-# Play the previous track
-play_previous() {
-  playerctl previous
-  show_music_notification
-}
-
-# Toggle play/pause
-toggle_play_pause() {
-  playerctl play-pause
-  sleep 0.1
-  show_music_notification
-}
-
-# Stop playback
-stop_playback() {
-  playerctl stop
-  notify-send -e -u low -i $music_icon " Playback:" " Stopped"
-}
-
-# Display notification with song information
 show_music_notification() {
-  status=$(playerctl status)
-  if [[ "$status" == "Playing" ]]; then
-    song_title=$(playerctl metadata title)
-    song_artist=$(playerctl metadata artist)
-    notify-send -e -u low -i $music_icon "Now Playing:" "$song_title by $song_artist"
-  elif [[ "$status" == "Paused" ]]; then
-    notify-send -e -u low -i $music_icon " Playback:" " Paused"
+  local status title artist
+
+  if ! status=$(playerctl status 2>/dev/null); then
+    return 1
   fi
+
+  case "$status" in
+    Playing)
+      title=$(playerctl metadata title 2>/dev/null || true)
+      artist=$(playerctl metadata artist 2>/dev/null || true)
+
+      [[ -n "$title" ]] || title="Unknown track"
+      if [[ -n "$artist" ]]; then
+        notify "Now playing:" "$title — $artist"
+      else
+        notify "Now playing:" "$title"
+      fi
+      ;;
+    Paused)
+      notify "Playback:" "Paused"
+      ;;
+  esac
 }
 
-# Get media control action from command line argument
-case "$1" in
-"--nxt")
-  play_next
-  ;;
-"--prv")
-  play_previous
-  ;;
-"--pause")
-  toggle_play_pause
-  ;;
-"--stop")
-  stop_playback
-  ;;
-*)
-  echo "Usage: $0 [--nxt|--prv|--pause|--stop]"
-  exit 1
-  ;;
+if ! command -v playerctl >/dev/null 2>&1; then
+  printf 'Error: playerctl is not installed or not in PATH\n' >&2
+  exit 127
+fi
+
+if ! command -v notify-send >/dev/null 2>&1; then
+  printf 'Error: notify-send is not installed or not in PATH\n' >&2
+  exit 127
+fi
+
+case "${1-}" in
+  --nxt)   action=next ;;
+  --prv)   action=previous ;;
+  --pause) action=play-pause ;;
+  --stop)  action=stop ;;
+  *)
+    printf 'Usage: %s [--nxt|--prv|--pause|--stop]\n' "$0" >&2
+    exit 2
+    ;;
 esac
+
+if ! playerctl "$action"; then
+  printf 'Error: playerctl %s failed (is a media player available?)\n' "$action" >&2
+  exit 1
+fi
+
+if [[ "$action" == stop ]]; then
+  notify "Playback:" "Stopped"
+else
+  if [[ "$action" == play-pause ]]; then
+    sleep 0.1
+  fi
+
+  if ! show_music_notification; then
+    printf 'Error: could not read playback status\n' >&2
+    exit 1
+  fi
+fi
+

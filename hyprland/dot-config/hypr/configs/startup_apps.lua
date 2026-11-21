@@ -29,7 +29,4 @@ hl.on("hyprland.start", function()
     -- Clipboard manager
     startup("wl-paste --type text --watch cliphist store")
     startup("wl-paste --type image --watch cliphist store")
-
-    -- Keyboard-layout initialization
-    startup(scripts_dir .. "/KeybindsLayoutInit.sh")
 end)
